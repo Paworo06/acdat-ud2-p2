@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -78,7 +79,7 @@ public class Main {
         File directorio = new File(ruta + "/" + nombre);
         if (directorio.mkdir()) {
             System.out.println("Directorio guardado correctamente.");
-        } else  {
+        } else {
             System.out.println("Ruta no existente.");
         }
     }
@@ -115,6 +116,35 @@ public class Main {
      */
     public static void crearFichero() {
         // TODO: Implementar según los puntos anteriores usando únicamente File.
+        System.out.print("Introduce la ruta completa del fichero a crear: ");
+        String ruta = sc.nextLine();
+
+        File fichero = new File(ruta);
+        if (fichero.exists()) {
+            System.out.println("Fichero ya existente.");
+        } else {
+            try {
+                File dirPadre = fichero.getParentFile();
+                if (dirPadre.exists() && dirPadre.isDirectory()) {
+                    fichero.createNewFile();
+                    System.out.println("Fichero creado correctamente.");
+                } else {
+                    System.out.print("El directorio padre no existe, ¿quiere crearlo? (S/N): ");
+                    String respuesta = sc.nextLine();
+                    if (respuesta.equalsIgnoreCase("S")) {
+                        dirPadre.mkdir();
+                        fichero.createNewFile();
+                        System.out.println("Fichero creado correctamente.");
+                    } else {
+                        System.out.println("No se ha creado el fichero.");
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("No se puede crear el fichero.");
+            }
+
+        }
+
     }
 
     /**
@@ -137,9 +167,9 @@ public class Main {
             System.out.print("\n¿Está seguro que desea eliminar el fichero? (s/n)");
             String respuesta = sc.nextLine();
 
-            if  (respuesta.equalsIgnoreCase("s") && fichero.delete()) {
+            if (respuesta.equalsIgnoreCase("s") && fichero.delete()) {
                 System.out.println("Fichero eliminado correctamente.");
-            } else if  (respuesta.equalsIgnoreCase("n")) {
+            } else if (respuesta.equalsIgnoreCase("n")) {
                 System.out.println("El fichero no se eliminará");
             } else {
                 System.out.println("Campo introducido no válido. El archivo no se eliminará");
