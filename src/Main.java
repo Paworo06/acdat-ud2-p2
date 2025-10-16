@@ -1,10 +1,12 @@
 import java.io.File;
+import java.util.Scanner;
 
 public class Main {
+    static Scanner sc = new Scanner(System.in);
 
     /**
      * Programa base para la gestión de ficheros y directorios con java.io.File.
-     *
+     * <p>
      * TODO:
      * - Implementar menú principal en consola.
      * - Usar únicamente la clase File para las operaciones.
@@ -16,11 +18,46 @@ public class Main {
         // TODO: Bucle del menú hasta seleccionar Salir.
         // TODO: Enrutar cada opción a su método correspondiente.
         // TODO: Mensaje final al salir.
+
+        int opcion = 0;
+
+        do {
+            System.out.println("""
+                    -------- Menú --------
+                    1. Crear directorio
+                    2. Eliminar directorio
+                    3. Crear fichero
+                    4. Eliminar fichero
+                    5. Salir
+                    ----------------------""");
+
+            System.out.print("Elija una opción: ");
+            opcion = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    crearDirectorio();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    System.out.println("Gracias por usar nuestro programa. Hasta la próxima!!!");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Solo opciones entre 1-5.");
+                    break;
+            }
+        } while (opcion != 5);
     }
 
     /**
      * Crear directorio.
-     *
+     * <p>
      * TODO:
      * - Pedir ruta del directorio.
      * - Validar entrada.
@@ -29,11 +66,23 @@ public class Main {
      */
     public static void crearDirectorio() {
         // TODO: Implementar según los puntos anteriores usando únicamente File.
+        System.out.print("Introduce la ruta en la que deseas crear el directorio: ");
+        String ruta = sc.nextLine();
+
+        System.out.print("Dime el nombre del directorio: ");
+        String nombre = sc.nextLine();
+
+        File directorio = new File(ruta + "/" + nombre);
+        if (directorio.mkdir()) {
+            System.out.println("Directorio guardado correctamente.");
+        } else  {
+            System.out.println("Ruta no existente.");
+        }
     }
 
     /**
      * Eliminar directorio.
-     *
+     * <p>
      * TODO:
      * - Pedir ruta y verificar exists e isDirectory.
      * - Intentar delete (solo si está vacío).
@@ -45,7 +94,7 @@ public class Main {
 
     /**
      * Crear fichero.
-     *
+     * <p>
      * TODO:
      * - Pedir ruta completa del fichero.
      * - Verificar si existe.
@@ -58,7 +107,7 @@ public class Main {
 
     /**
      * Eliminar fichero.
-     *
+     * <p>
      * TODO:
      * - Pedir ruta y verificar exists() e isFile().
      * - Confirmar con el usuario antes de borrar.
