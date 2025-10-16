@@ -40,6 +40,7 @@ public class Main {
                     crearDirectorio();
                     break;
                 case 2:
+                    eliminarDirectorio();
                     break;
                 case 3:
                     break;
@@ -90,6 +91,15 @@ public class Main {
      */
     public static void eliminarDirectorio() {
         // TODO: Implementar según los puntos anteriores usando únicamente File.
+        System.out.print("Introduce la ruta del directorio que deseas eliminar: ");
+        String ruta = sc.nextLine();
+
+        File directorio = new File(ruta);
+        if (directorio.exists() && directorio.isDirectory() && directorio.delete()) {
+            System.out.println("Directorio eliminado correctamente.");
+        } else {
+            System.out.println("No se puede eliminar el directorio. Asegurate que esté vacío o que exista.");
+        }
     }
 
     /**
