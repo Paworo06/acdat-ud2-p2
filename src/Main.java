@@ -43,8 +43,10 @@ public class Main {
                     eliminarDirectorio();
                     break;
                 case 3:
+                    crearFichero();
                     break;
                 case 4:
+                    eliminarFichero();
                     break;
                 case 5:
                     System.out.println("Gracias por usar nuestro programa. Hasta la próxima!!!");
@@ -125,5 +127,25 @@ public class Main {
      */
     public static void eliminarFichero() {
         // TODO: Implementar según los puntos anteriores usando únicamente File.
+        System.out.print("Introduce la ruta del archivo que deseas eliminar: ");
+        String ruta = sc.nextLine();
+
+        File fichero = new File(ruta);
+        if (fichero.exists() && fichero.isFile()) {
+            System.out.println("Archivo localizado con éxito");
+
+            System.out.print("\n¿Está seguro que desea eliminar el fichero? (s/n)");
+            String respuesta = sc.nextLine();
+
+            if  (respuesta.equalsIgnoreCase("s") && fichero.delete()) {
+                System.out.println("Fichero eliminado correctamente.");
+            } else if  (respuesta.equalsIgnoreCase("n")) {
+                System.out.println("El fichero no se eliminará");
+            } else {
+                System.out.println("Campo introducido no válido. El archivo no se eliminará");
+            }
+        } else {
+            System.out.println("El archivo no existe o la ruta es incorrecta.");
+        }
     }
 }
